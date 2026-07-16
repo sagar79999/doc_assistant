@@ -1,6 +1,6 @@
 # DocAssistant - Production-Ready AI PDF Chatbot
 
-DocAssistant is a complete, full-stack AI Document Assistant built using **FastAPI**, **LangChain**, **React + Vite**, **Tailwind CSS**, and **Google Gemini API**. 
+DocAssistant is a complete, full-stack AI Document Assistant built using **FastAPI**, **LangChain**, **React + Vite**, **Tailwind CSS**, and **Groq API**. 
 
 The system implements advanced RAG (Retrieval-Augmented Generation) patterns to ingest standard and scanned PDFs, index chunks into a local FAISS vector database, and provide a conversational chatbot interface featuring Server-Sent Events (SSE) streaming, conversation aware query rewriting, and page-level source citations.
 
@@ -13,14 +13,14 @@ graph TD
     User([User Client]) -->|1. Upload PDF| API[FastAPI Upload Route]
     API -->|2. Extract| Loader[PyMuPDF / OCR Loader]
     Loader -->|3. Split Pages| Chunk[Recursive Splitter]
-    Chunk -->|4. Embed| Embedding[Google Generative AI Embeddings]
+    Chunk -->|4. Embed| Embedding[BAAI/bge-small-en-v1.5]
     Embedding -->|5. Store Vectors| FAISS[FAISS Vector Store]
     
     User -->|6. Query chat| ChatRoute[FastAPI Chat Route]
     ChatRoute -->|7. Rephrase| Rewriter[LLM Query Rewriter]
     Rewriter -->|8. Fetch Context| FAISS
     FAISS -->|9. Top 5 Chunks| Comp[Context Compressor]
-    Comp -->|10. Prompt Context| LLM[Gemini-1.5-flash]
+    Comp -->|10. Prompt Context| LLM[llama-3.3-70b-versatile]
     LLM -->|11. Token Stream SSE| User
 ```
 
@@ -83,7 +83,7 @@ Create a `.env` file in the `backend/` directory (or specify in your deployment 
 
 ```env
 # Gemini API Key (Required)
-GEMINI_API_KEY=your_google_gemini_api_key
+GROQ_API_KEY=your_google_gemini_api_key
 
 # Optional settings
 PORT=8000
