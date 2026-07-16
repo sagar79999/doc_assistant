@@ -1,0 +1,31 @@
+# Python environment and cached files
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv
+venv/
+ENV/
+env/
+
+# Node packages and compiled frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# System/workspace files
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Application runtime persistent data (exclude from Git)
+backend/data/
+**/data/uploads/
+**/data/vector_store/
+**/data/history/

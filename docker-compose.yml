@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docassistant-app:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HOST=0.0.0.0
+      - PORT=8000
+      - ENVIRONMENT=production
+      - UPLOAD_DIR=data/uploads
+      - VECTOR_STORE_DIR=data/vector_store
+      - CHAT_HISTORY_DIR=data/history
+      - MAX_UPLOAD_SIZE_MB=20
+    volumes:
+      # Persist uploads, vector indexes and chat logs locally
+      - ./backend/data:/app/data
+    restart: always
